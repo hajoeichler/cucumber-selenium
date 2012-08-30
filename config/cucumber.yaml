@@ -1,0 +1,8 @@
+---
+plain: --no-profile
+wip: --color --no-snippets --dry-run --wip --tags @wip
+video: VIDEO_FOR_ALL_SCENARIOS=true
+manual: --tags @interactive
+auto: --tags ~@interactive
+ci: --profile auto --strict --quit --color --format pretty --format junit --out results --format html --out result.html --format rerun --out rerun.txt --tags ~@wip
+debug: --format debug --backtrace --verbose
