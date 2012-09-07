@@ -1,10 +1,17 @@
-module HeadLessHelper
-  at_exit { @@headless.destroy unless @@headless.nil? }
+require 'headless'
 
+module HeadlessHelper
   def start_headless
     @@headless = Headless.new
     @@headless.start 
   end
+
+  def stop_headless
+    @@headless.destroy unless @@headless.nil?
+  end
+  module_function :stop_headless
+  # ensures that headless is stopped at the end anyway.
+  at_exit { HeadlessHelper.stop_headless }
 
   def start_video_capturing
     @@headless.video.start_capture
@@ -15,7 +22,7 @@ module HeadLessHelper
       @@headless.video.stop_and_discard
       return
     end
-    folder = "#{folder}/test-scenario-videos"
+    folder = "#{destdir}/test-scenario-videos"
     if not File.directory? folder
       FileUtils.mkdir_p folder
     end
