@@ -2,10 +2,6 @@ require 'selenium-webdriver'
 require 'erb'
 
 module WebDriverHelper
-
-  # ensure that browser will be closed at the end.
-  at_exit { @@browser.quit unless @@browser.nil? }
-
   def start_browser(proxy_host, proxy_port="3128")
     if proxy_host.nil?
       @@browser = Selenium::WebDriver.for :firefox
@@ -23,7 +19,17 @@ module WebDriverHelper
     @@browser.manage.window.maximize
   end
 
-  # TODO: move javascript into own file
+  def stop_browser
+    begin
+      @@browser.quit
+    rescue Selenium::WebDriver::Error::WebDriverError
+      # we ignore exceptions on shutdown
+    end
+  end
+  module_function :stop_browser
+  # ensure that browser will be closed at the end anyway.
+  at_exit { WebDriverHelper.stop_browser }
+
   def add_jquery
     load_javascript "https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"
   end
@@ -41,5 +47,4 @@ module WebDriverHelper
   def browser
     @@browser
   end
-
 end
