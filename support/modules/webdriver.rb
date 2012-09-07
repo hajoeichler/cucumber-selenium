@@ -21,7 +21,7 @@ module WebDriverHelper
 
   def stop_browser
     begin
-      @@browser.quit
+      @@browser.quit unless @@browser.nil?
     rescue Selenium::WebDriver::Error::WebDriverError
       # we ignore exceptions on shutdown
     end
