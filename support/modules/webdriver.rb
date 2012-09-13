@@ -1,5 +1,4 @@
 require 'selenium-webdriver'
-require 'erb'
 
 module WebDriverHelper
   def start_browser(proxy_host, proxy_port="3128")
