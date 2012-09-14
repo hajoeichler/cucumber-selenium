@@ -6,3 +6,11 @@ manual: --tags @interactive
 auto: --tags ~@interactive
 ci: --profile auto --strict --quiet --color --format pretty --format junit --out results --format html --out result.html --format rerun --out rerun.txt --tags ~@wip
 debug: --format debug --backtrace --verbose
+sbs: STEP_BY_STEP=true
+# # For profile 'sbs' add this to your env.erb
+# step_by_step = ENV['STEP_BY_STEP'] == "true"
+# AfterStep do
+#   if step_by_step
+#     ask "Press any key to continue"
+#   end
+# end
