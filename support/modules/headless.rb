@@ -2,12 +2,14 @@ require 'headless'
 
 module HeadlessHelper
   def start_headless
-    @@headless = Headless.new
+    @@headless = Headless.new({:video => { :log_file_path => "/tmp/headless-video.log" }})
     @@headless.start 
   end
 
   def stop_headless
-    @@headless.destroy unless @@headless.nil?
+    if defined?(@@headless)
+      @@headless.destroy
+    end
   end
   module_function :stop_headless
   # ensures that headless is stopped at the end anyway.
@@ -18,6 +20,7 @@ module HeadlessHelper
   end
   
   def stop_and_store_video(scenario, only_failed=true, destdir="/tmp", filename_prefix="")
+    return unless defined?(@@headless)
     if only_failed and not scenario.failed?
       @@headless.video.stop_and_discard
       return
