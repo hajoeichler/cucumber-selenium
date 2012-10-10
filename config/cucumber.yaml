@@ -1,10 +1,11 @@
 ---
 plain: --no-profile
 wip: --color --no-snippets --dry-run --wip --tags @wip
+# There is a bug in cucumber - so please run 'cucumber -p wip --dry-run'
 video: VIDEO_FOR_ALL_SCENARIOS=true
 manual: --tags @interactive
-auto: --tags ~@interactive
-ci: --profile auto --strict --quiet --color --format pretty --format junit --out results --format html --out result.html --format rerun --out rerun.txt --tags ~@wip
+auto: --tags ~@interactive --tags ~@wip
+ci: --profile auto --strict --quiet --color --format pretty --format junit --out results --format html --out result.html --format rerun --out rerun.txt
 debug: --format debug --backtrace --verbose
 sbs: STEP_BY_STEP=true
 # # For profile 'sbs' add this to your env.erb
