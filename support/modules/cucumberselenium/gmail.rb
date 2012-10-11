@@ -36,6 +36,6 @@ module CucumberSelenium::GMail
 
   # Will delete the supplied email from your GMail inbox
   def self.delete(username, password, mail, opts={})
-    raise "Not implemented yet!"
+    Mail.find(:keys => "HEADER Message-ID #{mail.message_id}", :delete_after_find => true, :read_only => true)
   end
 end
