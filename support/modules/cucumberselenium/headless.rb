@@ -1,6 +1,5 @@
 require 'headless'
 
-
 module CucumberSelenium::HeadlessHelper
   def start_headless
     @@headless = Headless.new({:video => { :log_file_path => "/tmp/headless-video.log" }})
