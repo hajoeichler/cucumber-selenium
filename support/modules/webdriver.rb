@@ -11,6 +11,19 @@ module WebDriverHelper
       @@browser = Selenium::WebDriver.for :firefox, :profile => profile
     end
 
+    config_browser
+  end
+
+  def start_sauce_labs_browser(account, key, caps)
+    @@browser = Selenium::WebDriver.for(
+      :remote,
+      :url => "http://#{account}:#{key}@ondemand.saucelabs.com:80/wd/hub",
+      :desired_capabilities => caps)
+
+    config_browser
+  end
+
+  def config_browser
     # In general we set the maximum timeout to 10 seconds.
     @@browser.manage.timeouts.implicit_wait = 10
 
@@ -19,10 +32,12 @@ module WebDriverHelper
   end
 
   def stop_browser
-    begin
-      @@browser.quit unless @@browser.nil?
-    rescue Selenium::WebDriver::Error::WebDriverError
-      # we ignore exceptions on shutdown
+    if defined?(@@browser)
+      begin
+        @@browser.quit
+      rescue Selenium::WebDriver::Error::WebDriverError
+        # we ignore exceptions on shutdown
+      end
     end
   end
   module_function :stop_browser
