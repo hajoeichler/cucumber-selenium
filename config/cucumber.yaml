@@ -4,6 +4,7 @@ plain: --no-profile
 video: VIDEO_FOR_ALL_SCENARIOS=true
 headless: HEADLESS=true
 failfast: FAIL_FAST=true
+verbose: VERBOSE=true
 sbs: STEP_BY_STEP=true
 manual: --tags @interactive
 auto: --tags ~@interactive --tags ~@wip
