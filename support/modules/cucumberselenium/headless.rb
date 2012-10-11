@@ -13,7 +13,7 @@ module CucumberSelenium::HeadlessHelper
   end
   module_function :stop_headless
   # ensures that headless is stopped at the end anyway.
-  at_exit { HeadlessHelper.stop_headless }
+  at_exit { CucumberSelenium::HeadlessHelper.stop_headless }
 
   def start_video_capturing
     @@headless.video.start_capture

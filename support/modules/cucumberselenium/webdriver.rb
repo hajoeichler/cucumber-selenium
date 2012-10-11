@@ -42,7 +42,7 @@ module CucumberSelenium::WebDriverHelper
   end
   module_function :stop_browser
   # ensure that browser will be closed at the end anyway.
-  at_exit { WebDriverHelper.stop_browser }
+  at_exit { CucumberSelenium::WebDriverHelper.stop_browser }
 
   def add_jquery
     load_javascript "https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"
