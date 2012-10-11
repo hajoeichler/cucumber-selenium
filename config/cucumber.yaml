@@ -5,13 +5,6 @@ video: VIDEO_FOR_ALL_SCENARIOS=true
 headless: HEADLESS=true
 failfast: FAIL_FAST=true
 sbs: STEP_BY_STEP=true
-# # For profile 'sbs' add this to your env.erb
-# step_by_step = ENV['STEP_BY_STEP'] == "true"
-# AfterStep do
-#   if step_by_step
-#     ask "Press any key to continue"
-#   end
-# end
 manual: --tags @interactive
 auto: --tags ~@interactive --tags ~@wip
 wip: --color --no-snippets --dry-run --wip --tags @wip
