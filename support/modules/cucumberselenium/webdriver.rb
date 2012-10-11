@@ -1,6 +1,6 @@
 require 'selenium-webdriver'
 
-module WebDriverHelper
+module CucumberSelenium::WebDriverHelper
   def start_browser(proxy_host, proxy_port="3128")
     if proxy_host.nil?
       @@browser = Selenium::WebDriver.for :firefox

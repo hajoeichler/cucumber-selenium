@@ -2,7 +2,7 @@ require 'net/imap'
 require 'mail'
 require 'pp'
 
-module GMail
+module CucumberSelenium::GMail
   DEFAULTS = { :delete => false,
                :host => "imap.gmail.com",
                :port => 993,
