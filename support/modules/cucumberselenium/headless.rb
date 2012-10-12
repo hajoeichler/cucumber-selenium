@@ -4,7 +4,7 @@ require 'tmpdir'
 module CucumberSelenium::HeadlessHelper
   def start_headless
     logfile = File.join(Dir.tmpdir, "headless-video.log")
-    @@headless = Headless.new {:video => { :log_file_path => logfile }}
+    @@headless = Headless.new({:video => { :log_file_path => logfile }})
     @@headless.start
   end
 
