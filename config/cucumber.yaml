@@ -1,7 +1,7 @@
 ---
 plain: --no-profile
 # There is a bug in cucumber - so please run 'cucumber -p wip --dry-run'
-video: VIDEO_FOR_ALL_SCENARIOS=true
+video: RECORD_ALL_VIDEOS=true
 headless: HEADLESS=true
 failfast: FAIL_FAST=true
 verbose: VERBOSE=true
