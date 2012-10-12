@@ -2,14 +2,16 @@ require 'selenium-webdriver'
 
 module CucumberSelenium::WebDriverHelper
   def start_browser(proxy_host, proxy_port="3128")
-    if proxy_host.nil?
-      @@browser = Selenium::WebDriver.for :firefox
-    else
-      profile = Selenium::WebDriver::Firefox::Profile.new
+
+    profile = Selenium::WebDriver::Firefox::Profile.new
+    profile["general.useragent.override"] = "commercetools webtests"
+    if not proxy_host.nil?
+      #profile["network.http.phishy-userpass-length"] = "255"
+      #profile["network.automatic-ntlm-auth.trusted-uris"] = "kela.de"
       proxy = Selenium::WebDriver::Proxy.new(:http => "#{proxy_host}:#{proxy_port}")
       profile.proxy = proxy
-      @@browser = Selenium::WebDriver.for :firefox, :profile => profile
     end
+    @@browser = Selenium::WebDriver.for :firefox, :profile => profile
 
     config_browser
   end
