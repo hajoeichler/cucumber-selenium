@@ -1,13 +1,14 @@
 require 'selenium-webdriver'
+require 'base64'
 
 module CucumberSelenium::WebDriverHelper
-  def start_browser(proxy_host, proxy_port="3128")
+  def start_browser(user_agent_string, proxy_host, proxy_port="3128")
 
     profile = Selenium::WebDriver::Firefox::Profile.new
-    profile["general.useragent.override"] = "commercetools webtests"
+    profile["general.useragent.override"] = user_agent_string
     if not proxy_host.nil?
-      #profile["network.http.phishy-userpass-length"] = "255"
-      #profile["network.automatic-ntlm-auth.trusted-uris"] = "kela.de"
+      load_and_config_headertool profile
+
       proxy = Selenium::WebDriver::Proxy.new(:http => "#{proxy_host}:#{proxy_port}")
       profile.proxy = proxy
     end
@@ -16,10 +17,17 @@ module CucumberSelenium::WebDriverHelper
     config_browser
   end
 
+  def load_and_config_headertool(profile)
+      profile["extensions.headertool.preferencies.onoff"] = true
+      enc = Base64.encode64 "#{test_config['basic_auth']['username']}:#{test_config['basic_auth']['password']}"
+      profile["extensions.headertool.preferencies.editor"] = "Authorization : Basic #{enc}"
+      profile.add_extension "#{test_config['firefox']['addon_dir']}/ht_0.5.1.xpi"
+  end
+
   def start_sauce_labs_browser(account, key, caps)
     @@browser = Selenium::WebDriver.for(
       :remote,
-      :url => "http://#{account}:#{key}@ondemand.saucelabs.com:80/wd/hub",
+      :url => "http://#{test_config['saucelabs']['username']}:#{test_config['saucelabs']['access_key']}@ondemand.saucelabs.com:80/wd/hub",
       :desired_capabilities => caps)
 
     config_browser
