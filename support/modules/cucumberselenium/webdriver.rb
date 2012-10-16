@@ -9,7 +9,10 @@ module CucumberSelenium::WebDriverHelper
     if not proxy_host.nil?
       load_and_config_headertool profile
 
-      proxy = Selenium::WebDriver::Proxy.new(:http => "#{proxy_host}:#{proxy_port}")
+      proxy = Selenium::WebDriver::Proxy.new({
+        :http => "#{proxy_host}:#{proxy_port}",
+        :ssl => "#{proxy_host}:#{proxy_port}"
+      })
       profile.proxy = proxy
     end
     @@browser = Selenium::WebDriver.for :firefox, :profile => profile
