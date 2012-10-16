@@ -24,13 +24,22 @@ module CucumberSelenium::WebDriverHelper
       profile.add_extension "#{test_config['firefox']['addon_dir']}/ht_0.5.1.xpi"
   end
 
-  def start_sauce_labs_browser(account, key, caps)
+  def start_sauce_labs_browser(caps)
     @@browser = Selenium::WebDriver.for(
       :remote,
       :url => "http://#{test_config['saucelabs']['username']}:#{test_config['saucelabs']['access_key']}@ondemand.saucelabs.com:80/wd/hub",
       :desired_capabilities => caps)
 
     config_browser
+  end
+
+  def set_saucelabs_test_status(job_id, scenario_status)
+    http = Net::HTTP.new "saucelabs.com"
+    req = Net::HTTP::Put.new "/rest/v1/#{test_config['saucelabs']['username']}/jobs/#{job_id}"
+    req.basic_auth test_config['saucelabs']['username'], test_config['saucelabs']['access_key']
+    req.body = "{\"passed\": \"#{scenario_status}\"}"
+    response = http.request req
+    response.value
   end
 
   def config_browser
