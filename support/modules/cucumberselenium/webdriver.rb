@@ -50,7 +50,11 @@ module CucumberSelenium::WebDriverHelper
     @@browser.manage.timeouts.implicit_wait = 10
 
     # maximize window
-    @@browser.manage.window.maximize
+    begin
+      @@browser.manage.window.maximize
+    rescue Selenium::WebDriver::Error::WebDriverError
+      # eg IE9 does not like maximize - and we just ignore it
+    end
   end
 
   def stop_browser
