@@ -6,6 +6,7 @@ module CucumberSelenium::WebDriverHelper
 
     profile = Selenium::WebDriver::Firefox::Profile.new
     profile["general.useragent.override"] = user_agent_string
+    profile.assume_untrusted_certificate_issuer = false # tells firefox to trust production ssl certificates on staging system
     if not proxy_host.nil?
       load_and_config_headertool profile
 
