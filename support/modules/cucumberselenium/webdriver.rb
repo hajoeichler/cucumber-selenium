@@ -2,11 +2,13 @@ require 'selenium-webdriver'
 require 'base64'
 
 module CucumberSelenium::WebDriverHelper
-  def start_browser(user_agent_string, proxy_host, proxy_port="3128")
+  def start_browser(user_agent_string, proxy_host, proxy_port="3128", assume_untrusted_certificate_issuer=true)
 
     profile = Selenium::WebDriver::Firefox::Profile.new
     profile["general.useragent.override"] = user_agent_string
-    profile.assume_untrusted_certificate_issuer = false # tells firefox to trust production ssl certificates on staging system
+    if assume_untrusted_certificate_issuer
+      profile.assume_untrusted_certificate_issuer = false # tells firefox to trust production ssl certificates on staging system
+    end
     if not proxy_host.nil?
       load_and_config_headertool profile
 
