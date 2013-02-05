@@ -11,7 +11,9 @@ manual: --tags @interactive
 auto: --tags ~@interactive --tags ~@wip
 # There is a bug in cucumber - so please run 'cucumber -p wip --dry-run'
 wip: --color --no-snippets --dry-run --wip --tags @wip
-ci: --profile auto --profile headless --strict --quiet --color --format pretty --format junit --out results --format html --out result.html --format rerun --out rerun.txt --format usage --out usage.colored.txt
+# check for workspace directory
+<% ws = ENV['WORKSPACE'].nil? ? "." : ENV['WORKSPACE'] %>
+ci: --profile auto --profile headless --strict --quiet --color --format pretty --format junit --out <%= ws %>/results --format html --out <%= ws %>/result.html --format rerun --out <%= ws %>/rerun.txt --format usage --out <%= ws %>/usage.colored.txt
 debug: --format debug --backtrace --verbose
 # Support common names of environments via profiles
 vagrant: SYSTEM_UNDER_TEST="vagrant"
