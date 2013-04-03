@@ -59,7 +59,8 @@ module CucumberSelenium::WebDriverHelper
     begin
       @@browser.manage.window.maximize
     rescue Selenium::WebDriver::Error::WebDriverError
-      # eg IE9 does not like maximize - and we just ignore it
+      # eg IE9 does not like maximize and in headless mode it doesn't work - so we go with a fixed sizes
+      @@browser.manage.window.resize_to 1280, 1024
     end
   end
 
