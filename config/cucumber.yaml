@@ -13,7 +13,7 @@ auto: --tags ~@interactive --tags ~@wip
 wip: --color --no-snippets --dry-run --wip --tags @wip
 # check for workspace directory
 <% ws = ENV['WORKSPACE'].nil? ? "." : ENV['WORKSPACE'] %>
-ci: --profile auto --profile headless --strict --quiet --color --format pretty --format junit --out <%= ws %>/results --format html --out <%= ws %>/result.html --format rerun --out <%= ws %>/rerun.txt --format usage --out <%= ws %>/usage.colored.txt
+ci: --profile auto --profile headless --strict --quiet --color --format pretty --format junit --out <%= ws %>/results --format rerun --out <%= ws %>/rerun.txt --format usage --out <%= ws %>/usage.colored.txt
 debug: --format debug --backtrace --verbose
 # Support common names of environments via profiles
 vagrant: --profile auto SYSTEM_UNDER_TEST="vagrant"
