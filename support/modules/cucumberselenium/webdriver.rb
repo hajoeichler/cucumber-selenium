@@ -30,7 +30,7 @@ module CucumberSelenium::WebDriverHelper
       profile["extensions.headertool.preferencies.onoff"] = true
       enc = Base64.encode64 "#{test_config['basic_auth']['username']}:#{test_config['basic_auth']['password']}"
       profile["extensions.headertool.preferencies.editor"] = "Authorization : Basic #{enc}"
-      profile.add_extension "#{test_config['firefox']['addon_dir']}/ht_0.5.1.xpi"
+      profile.add_extension "#{test_config['firefox']['addon_dir']}/ht_0.6.1.xpi"
   end
 
   def start_sauce_labs_browser(caps)
